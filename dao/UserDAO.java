@@ -43,7 +43,7 @@ public class UserDAO {
         }
     }
     
-    public boolean validarLogin(User user) {
+    public boolean verifyLogin(User user) {
         
         String sql = "SELECT password FROM users WHERE username = ?";
 
@@ -56,7 +56,7 @@ public class UserDAO {
 
             if (rs.next()) {
                 
-                String passwordHash = rs.getString("senha");
+                String passwordHash = rs.getString("password");
                 
                 return BCrypt.checkpw(user.getPassword(), passwordHash);
             }

@@ -18,6 +18,8 @@ import virtualAgenda.database.Connect;
  */
 public class UserDAO {
     
+
+    
     public boolean registerUser(User user) {
         
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";

@@ -132,6 +132,9 @@ public class LoginView extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "Successfully logged in!");   
             
+            new AgendaView().setVisible(true);
+            this.dispose();
+            
         } else {
             
             JOptionPane.showMessageDialog(this, "Incorrect username or password!");

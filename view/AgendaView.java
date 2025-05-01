@@ -4,6 +4,12 @@
  */
 package virtualAgenda.view;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import virtualAgenda.controller.AgendaController;
+import virtualAgenda.controller.UserController;
+
 /**
  *
  * @author FELIPECANTINI
@@ -13,8 +19,20 @@ public class AgendaView extends javax.swing.JFrame {
     /**
      * Creates new form AgendaView
      */
-    public AgendaView() {
+    
+    UserController userController = new UserController();
+    AgendaController agendaController = new AgendaController();
+    
+    private DefaultListModel<String> listModel;
+    
+    public AgendaView(String idUser, String username) {
         initComponents();
+        
+        listModel = new DefaultListModel<>();
+        agendaList.setModel(listModel);
+        
+        txtIdUser.setText(idUser);
+        txtWelcome.setText(username + "'s agenda");
     }
 
     /**
@@ -26,6 +44,7 @@ public class AgendaView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         agendaList = new javax.swing.JList<>();
         hourBox = new javax.swing.JComboBox<>();
@@ -36,6 +55,10 @@ public class AgendaView extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnList = new javax.swing.JButton();
+        txtIdUser = new javax.swing.JLabel();
+        txtWelcome = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,21 +71,64 @@ public class AgendaView extends javax.swing.JFrame {
         monthBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "09", "09", "10", "11", "12" }));
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnList.setText("List");
+        btnList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListActionPerformed(evt);
+            }
+        });
+
+        txtIdUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtIdUser.setText("jLabel1");
+
+        txtWelcome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtWelcome.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtIdUser)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(169, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(hourBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -70,23 +136,15 @@ public class AgendaView extends javax.swing.JFrame {
                             .addComponent(dayBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(monthBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)))
                 .addGap(167, 167, 167))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(68, 68, 68)
+                .addComponent(txtWelcome)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -103,11 +161,108 @@ public class AgendaView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnList))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txtIdUser)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+        String name = txtName.getText();
+        
+        String idUserString = txtIdUser.getText();
+        int idUser = Integer.parseInt(idUserString);
+        
+        Object day = dayBox.getSelectedItem();
+        String dayString = day.toString().trim();
+        
+        Object month = monthBox.getSelectedItem();
+        String monthString = month.toString().trim();
+        
+        Object hour = hourBox.getSelectedItem();
+        String hourString = hour.toString().trim();
+        
+        String date = dayString + "/" + monthString;
+        
+        String message = agendaController.addAgenda(name, idUser, date, hourString);
+        JOptionPane.showMessageDialog(this, message);
+        
+        if (message.equals("Succesfully added")) {
+            txtName.setText("");
+        }
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListActionPerformed
+        // TODO add your handling code here:
+        
+        listModel.clear();
+        
+        String idUserString = txtIdUser.getText();
+        int idUser = Integer.parseInt(idUserString);
+        
+        ArrayList<String> listAgenda = agendaController.listAgenda(idUser);
+        
+        for (String agenda : listAgenda){
+            listModel.addElement(agenda);
+        }
+    }//GEN-LAST:event_btnListActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        int index = agendaList.getSelectedIndex();
+        
+        String idUserString = txtIdUser.getText();
+        int idUser = Integer.parseInt(idUserString);
+        
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Select a row!");
+            return;
+        }
+        
+        String message = agendaController.deleteAgenda(index, idUser);
+        JOptionPane.showMessageDialog(this, message);
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        String newName = txtName.getText();
+        
+        String idUserString = txtIdUser.getText();
+        int idUser = Integer.parseInt(idUserString);
+        
+        Object day = dayBox.getSelectedItem();
+        String dayString = day.toString().trim();
+        
+        Object month = monthBox.getSelectedItem();
+        String monthString = month.toString().trim();
+        
+        Object hour = hourBox.getSelectedItem();
+        String newHourString = hour.toString().trim();
+        
+        String newDate = dayString + "/" + monthString;
+        
+        int index = agendaList.getSelectedIndex();
+        
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Select a row!");
+            return;
+        }
+        
+        String message = agendaController.updateAgenda(index, idUser, newName, newDate, newHourString);
+        JOptionPane.showMessageDialog(this, message);
+        
+         if (message.equals("Succesfully updated")) {
+            txtName.setText("");
+        }
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,7 +294,7 @@ public class AgendaView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgendaView().setVisible(true);
+                new AgendaView("idUser", "username").setVisible(true);
             }
         });
     }
@@ -152,8 +307,11 @@ public class AgendaView extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> dayBox;
     private javax.swing.JComboBox<String> hourBox;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> monthBox;
+    private javax.swing.JLabel txtIdUser;
     private javax.swing.JTextField txtName;
+    private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
 }

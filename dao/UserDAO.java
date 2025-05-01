@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 import virtualAgenda.model.User;
 import virtualAgenda.database.Connect;
@@ -68,5 +69,38 @@ public class UserDAO {
         }
         
     return false;
+    }
+    
+    public String[] searchUser(String username) {
+        
+        String[] arrayUser = new String[2]; 
+        
+        String sql = "SELECT id, username FROM users WHERE username = ?";
+
+        try (Connection conn = Connect.connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                
+                if (rs.next()) {
+                    
+                    int idResult = rs.getInt("id");
+                    
+                    arrayUser[0] = Integer.toString(idResult);
+                    arrayUser[1] = rs.getString("username");
+                    
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "Error!");
+                }
+            }
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Searching error: " + e.getMessage());
+        }
+
+        return arrayUser;
     }
 }

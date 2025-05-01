@@ -100,7 +100,7 @@ public class AgendaDAO {
             }
         }
         
-        public void updateAgenda(String id, String newName, String newHour, String newDate) {
+        public void updateAgenda(int id, String newName, String newHour, String newDate) {
         
         String sql = "UPDATE agenda SET name = ?, hour = ?, date = ? WHERE id = ?";
 
@@ -114,7 +114,7 @@ public class AgendaDAO {
                 
                 stmt.setString(3, newDate);
                 
-                stmt.setString(4, id);
+                stmt.setInt(4, id);
 
                 int rowsUpdated = stmt.executeUpdate();
 
@@ -140,7 +140,7 @@ public class AgendaDAO {
 
     }
         
-    public String[] searchAgenda(String id) {
+    public String[] searchAgenda(int index) {
         
         String[] arrayAgenda = new String[4]; 
         
@@ -148,7 +148,7 @@ public class AgendaDAO {
 
         try (Connection conn = Connect.connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setString(1, id);
+            stmt.setInt(1, index);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 

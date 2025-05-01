@@ -33,4 +33,11 @@ public class UserController {
         
         return null;
     }
+    
+    public String[] searchUser(String username) {
+        
+        String[] arrayUser = userDAO.searchUser(username);
+        
+        return arrayUser;
+    }
 }
